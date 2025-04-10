@@ -1,7 +1,7 @@
 /*
 
 		Dateiname:	SPORDEFS.C
-		Dateityp:	Include-Datei fr SPOREN6.C
+		Dateityp:	Include-Datei fï¿½r SPOREN6.C
 		Zweck:		ATARI ST Funktionslibrary
 		Projekt:	SPOREN.PRJ
 		Version:	1.10
@@ -14,6 +14,7 @@
 /* Bibliotheken */
 
 #include "spordefs.h"					/* prototypen ( SP ) */
+#include <stdlib.h>  // Needed for abs()
 
 #ifdef ATARI
 	#include	<tos.h>
@@ -37,25 +38,26 @@ extern int DIAGHT;
 
 /* Konstanten */
 
-const	int	linepatt	= -1;	/* linienmuster fr horizontal_line() */
+const	int	linepatt	= -1;	/* linienmuster fï¿½r horizontal_line() */
 
 
 /* Variablen */
 
 long	oldSSP, *HZ_200;
 
-
+
+
 /* Funktionsdefinitionen */
 
 void sysInit(void)
 {
 #ifdef ATARI
-	oldSSP = Super(0L);				/* Supervisormodus fr sysTimer() */
-	HZ_200 = (long *) 0x4BA;		/* Systemtimer fr sysTimer() */
+	oldSSP = Super(0L);				/* Supervisormodus fï¿½r sysTimer() */
+	HZ_200 = (long *) 0x4BA;		/* Systemtimer fï¿½r sysTimer() */
 	linea_init();
 	hide_mouse();
 	set_wrt_mode(REPLACE);
-	set_pattern(&linepatt, 0, 1);	/* Linienmuster fr vdiDSpore() */
+	set_pattern(&linepatt, 0, 1);	/* Linienmuster fï¿½r vdiDSpore() */
 #endif
 
 	return;
@@ -65,7 +67,7 @@ void sysInit(void)
 void sysExit(void)
 {
 #ifdef ATARI
-	Super((void *) oldSSP);			/* Zurck in Usermodus */
+	Super((void *) oldSSP);			/* Zurï¿½ck in Usermodus */
 #endif
 
 	return;

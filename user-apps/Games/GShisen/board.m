@@ -40,23 +40,25 @@ int imax(int a, int b) {
     	return b;
 }
 
-static NSComparisonResult randomizeTiles(GSTile *t1, GSTile *t2, id self)
-{
-    return [[t1 rndpos] compare: [t2 rndpos]];
+static NSComparisonResult randomizeTiles(id obj1, id obj2, void *context) {
+    GSTile *t1 = (GSTile *)obj1;
+    GSTile *t2 = (GSTile *)obj2;
+    return [[t1 rndpos] compare:[t2 rndpos]];
 }
 
-static NSComparisonResult sortScores(NSDictionary *d1, NSDictionary *d2, id self)
-{
-    int min1, min2, sec1, sec2;
-	
-    min1 = [[d1 objectForKey: @"minutes"] intValue];
-    sec1 = [[d1 objectForKey: @"seconds"] intValue];
-    sec1 += min1 * 60;
-    min2 = [[d2 objectForKey: @"minutes"] intValue];
-    sec2 = [[d2 objectForKey: @"seconds"] intValue];
-    sec2 += min2 * 60;
+static NSComparisonResult sortScores(id obj1, id obj2, void *context) {
+    NSDictionary *d1 = (NSDictionary *)obj1;
+    NSDictionary *d2 = (NSDictionary *)obj2;
 
-    return [[NSNumber numberWithInt: sec1] compare: [NSNumber numberWithInt: sec2]];
+    int min1 = [[d1 objectForKey:@"minutes"] intValue];
+    int sec1 = [[d1 objectForKey:@"seconds"] intValue] + min1 * 60;
+
+    int min2 = [[d2 objectForKey:@"minutes"] intValue];
+    int sec2 = [[d2 objectForKey:@"seconds"] intValue] + min2 * 60;
+
+    if (sec1 < sec2) return NSOrderedAscending;
+    else if (sec1 > sec2) return NSOrderedDescending;
+    else return NSOrderedSame;
 }
 
 @implementation GSBoard
@@ -169,7 +171,7 @@ static NSComparisonResult sortScores(NSDictionary *d1, NSDictionary *d2, id self
             [tile release];
         }
     }
-    tmptiles = (NSMutableArray *)[tmptiles sortedArrayUsingFunction:(int (*)(id, id, void*))randomizeTiles context:self];
+    tmptiles = (NSMutableArray *)[tmptiles sortedArrayUsingFunction:randomizeTiles context:self];
 
     if(tmr && !hadEndOfGame) {
         if([tmr isValid])
@@ -543,7 +545,7 @@ static NSComparisonResult sortScores(NSDictionary *d1, NSDictionary *d2, id self
     [gameData setObject: [NSDate date] forKey: @"date"];
 
     [scores addObject: gameData];
-    [scores sortUsingFunction:(int (*)(id, id, void*))sortScores context:self];
+    [scores sortUsingFunction:sortScores context:self];
 		if ([scores count] > numScoresToKeep) {
 			NSRange scoresToZap = NSMakeRange(numScoresToKeep, 
 				[scores count] - numScoresToKeep);

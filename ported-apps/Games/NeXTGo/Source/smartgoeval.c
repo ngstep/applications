@@ -69,6 +69,7 @@ e-mail address: neil@math.mth.pdx.edu  (Internet)
 #include <strings.h>
 #include "smartgo.h"
 #include "smgcom.h"
+#include <string.h>  // ✅ declares strcpy(), strcmp(), etc.
 
 #define EMPTY 0
 #define WHITE 1
