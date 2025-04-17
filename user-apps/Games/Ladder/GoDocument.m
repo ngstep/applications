@@ -3,6 +3,7 @@
 #include "GoWindow.h"
 #include "PlayerController.h"
 #include "AppController.h"
+#include <unistd.h>
 
 NSString * GoDocumentDidBecomeMainNotification = @"GoDocumentDidBecomeMainNotification";
 NSString * GoDocumentDidResignMainNotification = @"GoDocumentDidResignMainNotification";
