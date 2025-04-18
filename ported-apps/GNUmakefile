@@ -16,8 +16,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = GAPPORTED
 
-SUBPROJECTS = Games \
-Util 
+SUBPROJECTS = Games
 
 #
 # Makefiles
