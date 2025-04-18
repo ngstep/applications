@@ -19,7 +19,6 @@ PACKAGE_NAME = GAPSYSTEM
 SUBPROJECTS = \
 Addresses \
 StepSync \
-Terminal \
 Zipper 
 
 #
