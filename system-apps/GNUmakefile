@@ -18,7 +18,6 @@ PACKAGE_NAME = GAPSYSTEM
 
 SUBPROJECTS = \
 Addresses \
-batmon \
 StepSync \
 Terminal \
 Zipper 

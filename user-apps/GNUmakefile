@@ -17,7 +17,6 @@ VERSION = 0.1
 PACKAGE_NAME = GAPUSER
 
 SUBPROJECTS = \
-AClock \
 FTP \
 Games \
 Graphos \
